@@ -1,2 +1,2 @@
-# This is the repository for my website.
-Bennett Apps
+# Bennett Apps
+My Website!
