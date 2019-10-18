@@ -18,5 +18,8 @@ Sort the falling balls by color in an infinite and increasingly difficult two-di
 This game is very simple, but it's a great brainless way to kill some time.
 
 # Barrage
+Barrage is a casual combat game. The major twist here is that when you stop moving, time slows down! This allows you to dodge enemy projectiles and fire back more effectively.
 
 # Chain Reactions
+Chain Reactions is a Sandbox game where you set up dominoes, ping-pong balls, and all sorts of other things in sequence and then knock the whole thing down. It's fun, it's satisfying, and it's simple.
+
