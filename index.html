@@ -19,7 +19,7 @@ window.dataLayer = window.dataLayer || [];
     <title>Bennett Apps</title>
 
     <!-- Font Awesome Icons -->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <script src="https://kit.fontawesome.com/d9563a0549.js" crossorigin="anonymous"></script>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet">
@@ -45,16 +45,16 @@ window.dataLayer = window.dataLayer || [];
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto my-2 my-lg-0">
                     <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#page-top">Skydom</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#about">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#projects">Projects</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#policy">Policy</a>
                     </li>
                 </ul>
             </div>
@@ -84,141 +84,135 @@ window.dataLayer = window.dataLayer || [];
         </div>
     </header>
 
+    <!-- Skydom Section -->
+    <section class="page-section bg-primary" style="padding: 4rem 0">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <img src="img/projects/fullsize/comingsoon.jpg" alt="Skydom" vspace="20" style="border-radius: 50%">
+                    <hr class="divider light my-4">
+                    <p class="mb-4 text-white">
+                        Skydom started out as a dream with some close friends years ago and has evolved into a vast, open-world adventure you can soon experience for yourself. If you're a fan of fantasy worlds, castles, and dragons, or stories of bravery and courage, this game is for you.
+                    </p>
+                    <a href="https://store.steampowered.com/app/1357400/Skydom/">
+                        <i class="fa-brands fa-steam fa-3x mb-3 text-white"></i>
+                        <p class="d-block text-white text-center">Steam</p>
+                    </a>            
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Section -->
+    <section class="bg-dark text-white" style="padding: 2rem 0">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="mt-0">Music??</h2>
+                    <hr class="divider my-4">
+                    <p class="mb-4">The Soundtrack for Skydom is entirely original. With the help of my good friend Toby and my dad, we were able to build an Album from scratch. Check it out below!</p>
+                    <div class="d-flex flex-wrap justify-content-center">
+                        <div class="text-center" style="margin: 40px">
+                            <a href="https://open.spotify.com/album/7uskSYF1og4h87GvzdKBIq">
+                                <i class="fa-brands fa-spotify fa-3x mb-3 text-white"></i>
+                                <p class="d-block text-white text-center">Spotify</p>
+                            </a>
+                        </div>
+                        <div class="text-center" style="margin: 40px">
+                            <a href="https://music.apple.com/us/album/skydom-soundtrack/1613237820">
+                                <i class="fa-brands fa-itunes-note fa-3x mb-3 text-white"></i>
+                                <p class="d-block text-white text-center">Apple</p>
+                            </a>
+                        </div>
+                        <div class="text-center" style="margin: 40px">
+                            <a href="https://music.youtube.com/playlist?list=OLAK5uy_lm2bg3rUoR4XZuLw-iwNqNHylR_eEfXHs">
+                                <i class="fa-brands fa-youtube fa-3x mb-3 text-white"></i>
+                                <p class="d-block text-white text-center">Youtube</p>
+                            </a>
+                        </div>
+                        <div class="text-center" style="margin: 40px">
+                            <a href="https://music.amazon.com/albums/B09V1W8J87">
+                                <i class="fa-brands fa-amazon fa-3x mb-3 text-white"></i>
+                                <p class="d-block text-white text-center">Amazon</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Previous Projects Section -->
+    <section class="bg-primary text-white" id="portfolio" style="padding: 2rem 0">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="mt-0">Previous Projects</h2>
+                    <hr class="divider my-4">
+                    <p class="mb-4">Skydom is my most ambitious title to date but I've worked on a variety of previous projects as well. It's fun to look back on previous projects and see how far I've come. Inserting random terrible web game below...</p>
+                    <div class="d-flex flex-wrap justify-content-center">
+                        <div class="text-center" style="margin: 10px">
+                            <iframe id="randomgame"></iframe>
+                            <script type="text/javascript">
+                                var urls = new Array();
+                                urls[0] = "https://i.simmer.io/@bennettapps/pass";
+                                urls[1] = "https://i.simmer.io/@bennettapps/dodge";
+                                urls[2] = "https://i.simmer.io/@bennettapps/bust";
+                                urls[3] = "https://i.simmer.io/@bennettapps/shooter";
+                                urls[4] = "https://i.simmer.io/@bennettapps/blasted";
+                                
+                                var random = Math.floor(Math.random()*urls.length);
+                                var frame = document.getElementById("randomgame");
+                                frame.src = urls[random];
+                                frame.onload = function()
+                                {
+                                    frame.style.width = window.innerWidth * 0.5 +'px';
+                                    frame.style.height = window.innerWidth * 0.5 * 0.625 + 'px';
+                                }
+                            </script>
+                        </div>
+                        <div class="text-center" style="margin: 10px">
+                            <p class="mb-4">In addition, I've worked on many other projects (games and other apps):</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-wrap justify-content-center">
+                <div class="text-center" style="margin: 10px">
+                    <img src="img/projects/fullsize/budget.jpg" alt="Budget" vspace="20" style="border-radius: 50%">
+                    <a class="d-block text-white text-center">Budget</a>
+                </div>
+                <div class="text-center" style="margin: 10px">
+                    <img src="img/projects/fullsize/thebox.jpg" alt="The Box" vspace="20" style="border-radius: 50%">
+                    <a class="d-block text-white text-center">The Box</a>
+                </div>
+                <div class="text-center" style="margin: 10px">
+                    <img src="img/projects/fullsize/colorsorter.jpg" alt="Color Sorter" vspace="20" style="border-radius: 50%">
+                    <a class="d-block text-white text-center">Color Sorter</a>
+                </div>
+                <div class="text-center" style="margin: 10px">
+                    <img src="img/projects/fullsize/chainreactions.jpg" alt="Chain Reactions" vspace="20" style="border-radius: 50%">
+                    <a class="d-block text-white text-center">Chain Reactions</a>
+                </div>
+                <div class="text-center" style="margin: 10px">
+                    <img src="img/projects/fullsize/simmerprojects.jpg" alt="Agrid" vspace="20" style="border-radius: 50%">
+                    <a class="d-block text-white text-center">Agrid</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- About Section -->
-    <section class="page-section bg-primary" id="about">
+    <section class="page-section bg-dark" id="about" style="padding: 4rem 0">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8 text-center">
                     <h2 class="text-white mt-0">About</h2>
                     <hr class="divider light my-4">
-                    <p class="mb-4 text-white">Hi, I'm a Computer Science student at TMU with a passion for coding and game development. With my free time I've created several mobile and web games and am now pursuing my dream project: a medieval rpg called skydom, which you can wishlist today on steam! Learn more about my projects below.</p>
-                    <a class="btn btn-light btn-xl js-scroll-trigger" href="#projects">Projects</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Projects Section -->
-    <section class="bg-dark text-white" id="projects" style="padding: 4rem 0">
-        <!--<div class="row justify-content-center">
-            <div class="col-lg-8 text-center">
-                <h2 class="mt-0">Projects</h2>
-                <p class="mb-4">With my free time I've published several mobile apps and web games you can try today. I'm currently working on a computer game I hope to release on Steam soon. More on these below!</p>
-            </div>
-        </div>-->
-    </section>
-
-    <!-- Coming Soon Section -->
-    <section class="bg-dark text-white">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h2 class="text-white mt-0">Skydom (Coming Soon!)</h2>
-                    <img src="img/projects/fullsize/comingsoon.jpg" alt="Coming Soon" vspace="20" style="border-radius: 50%">
-                    <p class="mb-4">
-                        Skydom is an open-world experience all about combat and adventure. Swords clash, arrows fly, and dragons roar.
-                    </p>
-
-                    <div class="btn-group">
-                        <a class="btn btn-light btn-xl" href="https://store.steampowered.com/app/1357400/Skydom/">Wishlist On Steam</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- The Box Section -->
-    <section class="bg-dark text-white" style="padding: 4rem 0">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h2 class="text-white mt-0">The Box</h2>
-                    <img src="img/projects/fullsize/thebox.jpg" alt="The Box" vspace="20" style="border-radius: 50%">
-                    <p class="mb-4">Guide your character to the raised exit tunnel, maneuvering through a matrix of moving platforms. Escape before time runs out!</p>
-
-                    <div class="btn-group">
-                        <a class="btn btn-light btn-xl" href="https://apps.apple.com/us/app/the-box/id1373347459?ls=1">App Store</a>
-                        <a class="btn btn-light btn-xl" href="https://play.google.com/store/apps/details?id=com.Juke.TheBox">Google Play</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Color Sorter Section -->
-    <section class="bg-dark text-white" style="padding: 4rem 0">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h2 class="text-white mt-0">Color Sorter</h2>
-                    <img src="img/projects/fullsize/colorsorter.jpg" alt="Color Sorter" vspace="20" style="border-radius: 50%">
-                    <p class="mb-4">Sort the falling balls by color. Beat your Highscore. Unlock new colors. Challenge your friends!</p>
-
-                    <div class="btn-group">
-                        <a class="btn btn-light btn-xl" href="https://apps.apple.com/us/app/color-sorter/id1384666333?ls=1">App Store</a>
-                        <a class="btn btn-light btn-xl" href="https://play.google.com/store/apps/details?id=com.JesseBennett.ColorSorter">Google Play</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Barrage Section -->
-    <section class="bg-dark text-white" style="padding: 4rem 0">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h2 class="text-white mt-0">Barrage</h2>
-                    <img src="img/projects/fullsize/barrage.jpg" alt="Barrage" vspace="20" style="border-radius: 50%">
-                    <p class="mb-4">Simple 2D shooter with a major twist: when you stop moving, time slows down! This gives you the edge against those pesky triangles.</p>
-
-                    <div class="btn-group">
-                        <a class="btn btn-light btn-xl" href="https://apps.apple.com/us/app/barrage/id1462373846">App Store</a>
-                        <a class="btn btn-light btn-xl" href="https://play.google.com/store/apps/details?id=com.bennettapps.barrage">Google Play</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Chain Reactions Section -->
-    <section class="bg-dark text-white" style="padding: 4rem 0">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h2 class="text-white mt-0">Chain Reactions</h2>
-                    <img src="img/projects/fullsize/chainreactions.jpg" alt="Color Sorter" vspace="20" style="border-radius: 50%">
-                    <p class="mb-4">Create a Chain Reaction in this simple Sandbox game with Dominoes, Ping Pong Balls, and more, then knock it all down!</p>
-
-                    <div class="btn-group">
-                        <a class="btn btn-light btn-xl" href="https://apps.apple.com/us/app/chain-reactions/id1448616255?ls=1">App Store</a>
-                        <a class="btn btn-light btn-xl" href="https://play.google.com/store/apps/details?id=com.bennettapps.chainreactions">Google Play</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Simmer Section -->
-    <section class="bg-dark text-white" style="padding: 4rem 0">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h2 class="text-white mt-0">Web Games</h2>
-                    <img src="img/projects/fullsize/simmerprojects.jpg" alt="Color Sorter" vspace="20" style="border-radius: 50%">
-                    <p class="mb-4">We have a bunch of totally free browser games waiting for you to discover. Feel free to check them out and let us know what you think!</p>
-
-                    <div class="btn-group">
-                        <a class="btn btn-light btn-xl" href="https://simmer.io/@bennettapps">Simmer</a>
-                        <a class="btn btn-light btn-xl" href="https://bennettapps.itch.io/">Itch</a>
-                        <a class="btn btn-light btn-xl" href="https://bennettapps.newgrounds.com/">Newgrounds</a>
-                    </div>
-                    <div></div>
-                    <div class="btn-group">
-                        <a class="btn btn-light btn-xl" href="https://gamejolt.com/@bennettapps">Gamejolt</a>
-                        <a class="btn btn-light btn-xl" href="https://www.kongregate.com/accounts/bennettapps">Kongregate</a>
-                    </div>
-
+                    <p class="mb-4 text-white">Jesse Bennett here :)</p>
+                    <p class="mb-4 text-white">I'm a Computer Science student at TMU with a passion for coding and game development. I've been coding since I was 10 years old, and I like to think of it as a creative outlet, an art form. In addition to my own personal coding endeavors, I took a Software Development Internship back in Highschool which taught me the basics of mobile development.</p>
+                    <p class="mb-4 text-white">When I was very young I used to dream about a world of dragons and castles, a story of a young boy who takes on the world, a big adventure. I've poured out much of my free time the last couple years into Skydom, the realization of that dream.</p>
+                    <p class="mb-4 text-white">I'm currently pursuing a Bachlor's in Computer Science and Artificial Intelligence while working on Skydom with my spare time.</p>
                 </div>
             </div>
         </div>
@@ -230,40 +224,55 @@ window.dataLayer = window.dataLayer || [];
             <div class="row justify-content-center">
                 <div class="col-lg-8 text-center">
                     <h2 class="mt-0">Let's Connect!</h2>
-                    <hr class="divider my-4">
-                    <p class="text-white mb-5">Follow us on Instagram to see what we're up to. Send us an email and we will get back to you as soon as possible!</p>
+                    <hr class="divider light my-4">
+                    <p class="text-white mb-5">I'm a real person, not just a brand. Let's chat!</p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-4 ml-auto text-center mb-5 mb-lg-0">
-                    <i class="fas fa-globe fa-3x mb-3 text-white"></i>
-                    <a class="d-block text-white" href="https://www.instagram.com/bennettapps/">Instagram</a>
+            <div id="curator-feed-default-feed-layout"><a href="https://curator.io" target="_blank" class="crt-logo crt-tag">Powered by Curator.io</a></div>
+            <script type="text/javascript">
+                (function(){
+                    var i,e,d=document,s="script";i=d.createElement("script");i.async=1;i.charset="UTF-8";
+                    i.src="https://cdn.curator.io/published/53aa5a42-1f3c-4aba-8b40-3cfa73391f7a.js";
+                    e=d.getElementsByTagName(s)[0];e.parentNode.insertBefore(i, e);
+                })();
+            </script>
+            <div class="d-flex flex-wrap justify-content-center">
+                <div class="text-center" style="margin: 40px">
+                    <a href="https://www.instagram.com/bennettapps/">
+                        <i class="fa-brands fa-instagram fa-3x mb-3 text-white"></i>
+                        <p class="d-block text-white text-center">Instagram</p>
+                    </a>
                 </div>
-                <div class="col-lg-4 mr-auto text-center">
-                    <i class="fas fa-envelope fa-3x mb-3 text-white"></i>
-                    <!-- Make sure to change the email address in anchor text AND the link below! -->
-                    <a class="d-block text-white" href="mailto:jesse@bennettapps.com">Email</a>
+                <div class="text-center" style="margin: 40px">
+                    <a href="mailto:jesse@bennettapps.com">
+                        <i class="fa-solid fa-envelope fa-3x mb-3 text-white"></i>
+                        <p class="d-block text-white text-center">Email</p>
+                    </a>
+                </div>
+                <div class="text-center" style="margin: 40px">
+                    <a href="tel:8588681558">
+                        <i class="fa-solid fa-phone fa-3x mb-3 text-white"></i>
+                        <p class="d-block text-white text-center">Phone</p>
+                    </a>
+                </div>
+                <div class="text-center" style="margin: 40px">
+                    <a href="https://github.com/bennettapps">
+                        <i class="fa-brands fa-github fa-3x mb-3 text-white"></i>
+                        <p class="d-block text-white text-center">Github</p>
+                    </a>
+                </div>
+                <div class="text-center" style="margin: 40px">
+                    <a href="https://www.linkedin.com/in/jesse-bennett-30810a237">
+                        <i class="fa-brands fa-linkedin fa-3x mb-3 text-white"></i>
+                        <p class="d-block text-white text-center">LinkedIn</p>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Policy Section -->
-    <section class="bg-dark text-white" id="policy" style="padding: 2rem 0">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h2 class="mt-0">Privacy Policy</h2>
-                    <hr class="divider my-4">
-                    <p class="mb-4">Our games use Unity Ads and Unity Analytics to serve ads to our users and better understand our playerbase. For more information, please visit <a href="https://unity3d.com/legal/privacy-policy">this website.</a></p>
-                </div>
-            </div>
-        </div>
-    </section>
-
 
     <!-- Footer -->
-    <footer class="bg-dark" style="padding: 2rem 0" py-5">
+    <footer class="bg-dark" style="padding: 2rem 0" py-5>
         <div class="container">
             <div class="small text-center text-muted">Copyright &copy; 2022 - Bennett Apps</div>
         </div>
