@@ -53,7 +53,10 @@ window.dataLayer = window.dataLayer || [];
                         <a class="nav-link js-scroll-trigger" href="#page-top">Skydom</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
+                        <a class="nav-link js-scroll-trigger" href="#test">Resume</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#portfolio">Free Stuff</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#about">About</a>
@@ -108,8 +111,244 @@ window.dataLayer = window.dataLayer || [];
         </div>
     </section>
 
+    <!-- Job Section -->
+    <section class="page-section bg-dark" style="padding: 4rem 0" id="test">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="mt-0 text-white">Career Stuff</h2>
+
+                    <hr class="divider light my-4">
+
+                    <p class="mb-4 text-white">
+                        If you're looking for my resume...
+                    </p>
+                    <a id="click" class="btn btn-primary btn-xl js-scroll-trigger text-white" onclick="expandCanvas()">shhhh</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Canvas Section -->
+    <canvas id="myCanvas" height='0px' style="background: #000000; display: block;"></canvas>
+    <script>
+        class Ball {
+            constructor(x, y, dx, dy, radius, color) {
+                this.x = x;
+                this.y = y;
+                this.dx = dx;
+                this.dy = dy;
+                this.color = color;
+                this.radius = radius
+                this.trail = []
+                this.speed = 1
+            }
+
+            drawTrail() {                
+                for (let i = 0; i < this.trail.length; i++) {
+                    const trailBall = this.trail[i];
+                    const alpha = i / this.trail.length / 10;
+                    const trailRadius = this.radius * (i / (this.trail.length * 2)) + this.radius/2;
+                    ctx.beginPath();
+                    ctx.arc(trailBall.x, trailBall.y, trailRadius, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(255, 255, 255, ' + alpha + ')';
+                    ctx.fill();
+                    ctx.closePath();
+                }
+            }
+            
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.closePath();
+            }
+
+            update_mouse() {                
+                this.x = mouseX
+                this.y = mouseY;
+
+                this.trail.push({ x: this.x, y: this.y });
+                if (this.trail.length > 50) {
+                    this.trail.shift();
+                }
+            }
+
+            update() {
+                this.x += this.dx;
+                this.y += this.dy;
+                if (this.x + this.radius > canvas.width || this.x - this.radius < 0) {
+                    this.dx = -this.dx;
+                }
+                if (this.y + this.radius > canvas.height || this.y - this.radius < 0) {
+                    this.dy = -this.dy;
+                }
+            }
+
+            update_towards() {
+                const mx = mouseX - this.x;
+                const my = mouseY - this.y;
+                const distance = Math.sqrt(mx * mx + my * my);
+
+                if(distance > 0) {
+                    this.x += (mx / distance) * this.speed;
+                    this.y += (my / distance) * this.speed;
+                }
+
+                this.trail.push({ x: this.x, y: this.y });
+                if (this.trail.length > 50) {
+                    this.trail.shift();
+                }
+            }
+        }
+        
+        const canvas = document.querySelector('#myCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        
+        window.addEventListener('resize', function() {
+            canvas.width = window.innerWidth;
+        });
+
+        let balls1 = [];
+        let balls2 = [];
+        
+        function startGame() {  
+            balls1 = [];
+            balls2 = [];
+
+            for (let i = 0; i < 5; i++) {
+                let dx = Math.random() * 4 - 2;
+                let dy = Math.random() * 4 - 2;
+                let color = 'red';
+                let radius = i === 0 ? 12.5 : Math.random() * 10 + 5
+                let ball = new Ball(canvas.width / 2, canvas.height / 2, dx, dy, radius, color);
+                balls1.push(ball);
+            }
+
+            for (let i = 0; i < 10; i++) {
+                let dx = Math.random() * 4 - 2;
+                let dy = Math.random() * 4 - 2;
+                let color = 'green';
+                let radius = Math.random() * 10 + 5;
+                let ball = new Ball(canvas.width / 2, canvas.height / 2, dx, dy, radius, color);
+                balls2.push(ball);
+            }
+
+            setTimeout(() => {
+                animateBalls();
+            }, 10);
+        }
+        
+        mouseX = 0
+        mouseY = 0
+
+        let mouseBall = new Ball(0, 0, 0, 0, 12.5, 'white');
+        
+        function animateBalls() {
+            gameOver = false;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < balls1.length; i++) {
+                const ball = balls1[i];
+                const dx = ball.x - mouseX;
+                const dy = ball.y - mouseY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance <= 25) {
+                    gameOver = true;
+                }
+            }
+
+            // Delete balls that touch the mouse object
+            balls2 = balls2.filter(ball => {
+                const dx = ball.x - mouseX;
+                const dy = ball.y - mouseY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                return distance > 25; // Keep balls that are more than 20 pixels away from the mouse
+            });    
+
+            balls1.forEach(ball => {
+                ball.draw();
+                if (ball === balls1[0]) {
+                    ball.speed = 1 + (10 - balls2.length) * 0.2;
+                    ball.drawTrail();
+                    ball.update_towards();
+                } else {
+                    ball.update();
+                }
+            });
+
+            balls2.forEach(ball => {
+                ball.draw();
+                ball.update();
+            });
+            
+            mouseBall.drawTrail();
+            mouseBall.draw();
+            mouseBall.update_mouse();
+            
+            if(gameOver) {
+                startGame();
+                return;
+            }
+
+            if(balls2.length == 0) {
+                fetch('https://cdn.rawgit.com/bennettapps/bennettapps.github.io/master/resume.pdf') 
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'Resume.pdf';
+                    link.click();
+                    URL.revokeObjectURL(url);
+                }); 
+            } else {
+                requestAnimationFrame(animateBalls);
+            }
+        }
+                
+        canvas.addEventListener('mousemove', function(event) {
+            const rect = canvas.getBoundingClientRect();
+            mouseX = event.clientX - rect.left;
+            mouseY = event.clientY - rect.top;
+        });
+        
+        function expandCanvas() {
+            document.querySelector("#click").pointerEvents = "none";
+
+            const test = document.querySelector('#test');
+
+            if(test != null) {
+                // test.remove(); 
+            }
+
+            const canvas = document.querySelector('#myCanvas');
+            let currentHeight = parseInt(canvas.style.height.slice(0, -2));
+            if(isNaN(currentHeight)) {
+                currentHeight = 0;
+            }
+
+            let vel = ((((-((currentHeight - 150) * (currentHeight - 150))) / 150) + 150) / 18) + 1;
+
+            canvas.style.height = (currentHeight + vel) + 'px';
+
+            if(currentHeight >= 300) {
+                canvas.style.height = '300px';
+                canvas.height = 300;
+                startGame();
+            } else {
+                setTimeout(() => {
+                    expandCanvas();
+                }, 10);
+            }
+        }
+    </script>
+    
     <!-- Music Section -->
-    <section class="bg-dark text-white" style="padding: 2rem 0">
+    <!-- <section class="bg-dark text-white" style="padding: 2rem 0">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8 text-center">
@@ -145,7 +384,7 @@ window.dataLayer = window.dataLayer || [];
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     
     <!-- Previous Projects Section -->
     <section class="bg-primary text-white" id="portfolio" style="padding: 2rem 0">
@@ -154,18 +393,19 @@ window.dataLayer = window.dataLayer || [];
                 <div class="col-lg-8 text-center">
                     <h2 class="mt-0">Previous Projects</h2>
                     <hr class="divider light my-4">
-                    <p class="mb-4">Skydom is my most ambitious title to date but I've worked on a variety of previous projects as well. Most recently I've developed a totally free game for you, Raster. If you open this page on a computer you'll see it below. Enjoy!</p>
+                    <p class="mb-4">Skydom is my most ambitious title to date but I've worked on a variety of previous projects as well. For instance, here's a game I developed for a game jam in 24 hours.</p>
                     <div class="d-flex flex-wrap justify-content-center">
                         <div class="text-center" style="margin: 10px">
                             <iframe id="randomgame"></iframe>
                             <script type="text/javascript">
                                 var urls = new Array();
-                                urls[0] = "https://i.simmer.io/@bennettapps/raster";
+                                // urls[0] = "https://i.simmer.io/@bennettapps/agrid";
+                                // urls[0] = "https://i.simmer.io/@bennettapps/raster";
                                 // urls[0] = "https://i.simmer.io/@bennettapps/pass";
                                 // urls[1] = "https://i.simmer.io/@bennettapps/dodge";
                                 // urls[2] = "https://i.simmer.io/@bennettapps/bust";
                                 // urls[3] = "https://i.simmer.io/@bennettapps/shooter";
-                                // urls[4] = "https://i.simmer.io/@bennettapps/blasted";
+                                urls[0] = "https://i.simmer.io/@bennettapps/blasted";
                                 
                                 var random = Math.floor(Math.random()*urls.length);
                                 var frame = document.getElementById("randomgame");
@@ -177,13 +417,13 @@ window.dataLayer = window.dataLayer || [];
                                 }
                             </script>
                         </div>
-                        <div class="text-center" style="margin: 10px">
+                        <!-- <div class="text-center" style="margin: 10px">
                             <p class="mb-4">In addition, I've worked on many other projects (games and other apps):</p>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
-            <div class="d-flex flex-wrap justify-content-center">
+            <!-- <div class="d-flex flex-wrap justify-content-center">
                 <div class="text-center" style="margin: 10px">
                     <img src="img/projects/fullsize/budget.jpg" alt="Budget" vspace="20" style="border-radius: 50%">
                     <a class="d-block text-white text-center">Budget</a>
@@ -204,7 +444,7 @@ window.dataLayer = window.dataLayer || [];
                     <img src="img/projects/fullsize/simmerprojects.jpg" alt="Agrid" vspace="20" style="border-radius: 50%">
                     <a class="d-block text-white text-center">Agrid</a>
                 </div>
-            </div>
+            </div> -->
         </div>
     </section>
 
@@ -216,9 +456,8 @@ window.dataLayer = window.dataLayer || [];
                     <h2 class="text-white mt-0">About</h2>
                     <hr class="divider my-4">
                     <p class="mb-4 text-white">Hi, I'm Jesse!</p>
-                    <p class="mb-4 text-white">I'm a Computer Science student at TMU with a passion for coding and game development. I've been coding since I was 10 years old, and I like to think of it as a creative outlet, an art form. In addition to my own personal coding endeavors, I took a Software Development Internship back in Highschool which taught me the basics of mobile development.</p>
-                    <p class="mb-4 text-white">When I was very young I used to dream about a world of dragons and castles, a story of a young boy who takes on the world, a big adventure. I've poured out much of my free time the last couple years into Skydom, the realization of that dream.</p>
-                    <p class="mb-4 text-white">I'm currently pursuing a Bachlor's in Computer Science and Artificial Intelligence while working on Skydom with my spare time.</p>
+                    <p class="mb-4 text-white">I'm a Computer Science student at TMU with a passion for coding and game development. I've been coding since I was 10 years old, and I like to think of it as a creative outlet, an art form. When I was very young I used to dream about a world of dragons and castles, a story of a young boy who takes on the world, a big adventure. I've poured out much of my free time the last couple years into Skydom, the realization of that dream.</p>
+                    <p class="mb-4 text-white">I'm wrapping up my Senior year at TMU pursuing a Bachlor's in Computer Science and Artificial Intelligence. I'm a Software Engineer at Viasat in Carlsbad but I still make time for Game Development wherever I can.</p>
                 </div>
             </div>
         </div>
@@ -231,17 +470,16 @@ window.dataLayer = window.dataLayer || [];
                 <div class="col-lg-8 text-center">
                     <h2 class="mt-0">Let's Connect!</h2>
                     <hr class="divider light my-4">
-                    <p class="text-white mb-5">I'm a real person, not just a brand. Let's chat!</p>
                 </div>
             </div>
-            <div id="curator-feed-default-feed-layout"><a href="https://curator.io" target="_blank" class="crt-logo crt-tag">Powered by Curator.io</a></div>
+            <!-- <div id="curator-feed-default-feed-layout"><a href="https://curator.io" target="_blank" class="crt-logo crt-tag">Powered by Curator.io</a></div>
             <script type="text/javascript">
                 (function(){
                     var i,e,d=document,s="script";i=d.createElement("script");i.async=1;i.charset="UTF-8";
                     i.src="https://cdn.curator.io/published/53aa5a42-1f3c-4aba-8b40-3cfa73391f7a.js";
                     e=d.getElementsByTagName(s)[0];e.parentNode.insertBefore(i, e);
-                })();
-            </script>
+                })(); -->
+            <!-- </script> -->
             <div class="d-flex flex-wrap justify-content-center">
                 <div class="text-center" style="margin: 40px">
                     <a href="https://www.instagram.com/bennettapps/">
@@ -253,12 +491,6 @@ window.dataLayer = window.dataLayer || [];
                     <a href="mailto:jesse@bennettapps.com">
                         <i class="fa-solid fa-envelope fa-3x mb-3 text-white"></i>
                         <p class="d-block text-white text-center">Email</p>
-                    </a>
-                </div>
-                <div class="text-center" style="margin: 40px">
-                    <a href="tel:8588681558">
-                        <i class="fa-solid fa-phone fa-3x mb-3 text-white"></i>
-                        <p class="d-block text-white text-center">Phone</p>
                     </a>
                 </div>
                 <div class="text-center" style="margin: 40px">
@@ -278,9 +510,9 @@ window.dataLayer = window.dataLayer || [];
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark" style="padding: 2rem 0" py-5>
+    <footer class="bg-dark" style="padding: 1rem 0" py-5>
         <div class="container">
-            <div class="small text-center text-muted">Copyright &copy; 2022 - Bennett Apps</div>
+            <div class="small text-center text-muted">Copyright &copy; 2024 - Bennett Apps</div>
         </div>
     </footer>
 
